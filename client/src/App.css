@@ -30,3 +30,8 @@ color: white;
     height: max-content;
     margin: 26 auto;
 }
+
+.homeImage {
+    max-width: 500px;
+    height: max-content;
+}

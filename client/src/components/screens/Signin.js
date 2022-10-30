@@ -1,8 +1,10 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link , useNavigate} from 'react-router-dom'
+import { UserContext } from '../../App'
 
 const Signin = ()=> {
+    const {state, dispatch} = useContext(UserContext)
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,6 +29,9 @@ const Signin = ()=> {
                 alert(data.error)
             }
             else {
+                localStorage.setItem("jwt", data.token)
+                localStorage.setItem("user", JSON.stringify(data.user))
+                dispatch({type:"USER", payload:data.user})
                 alert("Signedin Successfully")
                 navigate("/")
             }

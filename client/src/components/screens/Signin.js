@@ -1,10 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link , useNavigate} from 'react-router-dom'
 
-const Signup = ()=> {
+const Signin = ()=> {
     const navigate = useNavigate();
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -12,23 +11,24 @@ const Signup = ()=> {
         if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             return alert("Enter valid Email"); 
         }
-        fetch("/signup", {
+        fetch("/signin", {
             method:"post",
             headers:{
                 "Content-Type":"application/json"
             },
             body:JSON.stringify({
-                name,
                 password,
                 email
             })
         }).then(res=>res.json())
         .then(data=>{
+            // console.log(data);
             if(data.error) {
                 alert(data.error)
             }
             else {
-                navigate("/signin")
+                alert("Signedin Successfully")
+                navigate("/")
             }
         }).catch(err=> {
             console.log(err);
@@ -37,13 +37,7 @@ const Signup = ()=> {
 
     return (
         <div>
-            <h1>Signup</h1>
-            <input 
-                type="text"
-                placeholder='name'
-                value={name}
-                onChange={(e)=>setName(e.target.value)}
-            />
+            <h1>Login</h1>
             <input 
                 type="text"
                 placeholder='email'
@@ -56,13 +50,13 @@ const Signup = ()=> {
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
             />
-            <button onClick={()=>PostData()} className="btn" > Signup </button>
+            <button className='btn' onClick={()=>PostData()} > Login </button>
             <h5>
-                Already have an account 
-                    <Link to={"/signin"}> Signin</Link> 
+                Don't have account 
+                    <Link to={"/signup"}> Signup</Link> 
             </h5>
         </div>
     )
 }
 
-export default Signup
+export default Signin

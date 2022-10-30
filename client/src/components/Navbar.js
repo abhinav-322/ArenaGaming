@@ -7,17 +7,9 @@ const NavBar = () => {
         <nav>
             <div className='topnav'>
                 <Link to='/'>Arena</Link>
-                {/* <ul> */}
-                    {/* <li> */}
                     <Link to='/signin'>Login</Link>
-                    {/* </li>
-                    <li> */}
                     <Link to='/signup'>Signup</Link>
-                    {/* </li>
-                    <li> */}
                     <Link to='/profile'>Profile</Link>
-                    {/* </li> */}
-                {/* </ul> */}
             </div>
         </nav>
     )

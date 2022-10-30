@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../App'
 import "../App.css"
 
 const NavBar = () => {
+    const navigate = useNavigate();
     const {state, dispatch} = useContext(UserContext);
     const renderList = ()=> {
         if(state) {
@@ -11,6 +12,15 @@ const NavBar = () => {
                 <div>
                 <Link to='/profile'>Profile</Link>
                 <Link to='/create'>Create Post</Link>
+                <button className="btn"
+                    onClick={()=>{
+                    localStorage.clear()
+                    dispatch({type:"CLEAR"})
+                    navigate('/signin')
+                    }}
+                    >
+                        Logout
+                </button>
                 </div>
             ]
         } else {

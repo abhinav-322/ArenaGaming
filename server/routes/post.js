@@ -91,8 +91,8 @@ router.delete('/deletecomment/:postId/:commentId', requireLogin, (req, res) => {
             );
             if (comment.postedBy._id.toString() === req.user._id.toString()) {
                 const removeIndex = post.comments
-                .map(comment => comment.postedBy._id.toString())
-                .indexOf(req.user._id);
+                    .map(comment => comment._id.toString())
+                    .indexOf(req.params.commentId);
                 post.comments.splice(removeIndex, 1);
                 post.save()
                 .then(result=>{

@@ -62,7 +62,9 @@ router.put('/like',requireLogin,(req,res)=>{
 })
 
 router.put('/unlike',requireLogin,(req,res)=>{
+    // console.log(req.body.postId)
     Post.findByIdAndUpdate(req.body.postId,{
+        // console.log(req.user._id)
         $pull:{likes:req.user._id}
     },{
         new:true
@@ -74,6 +76,31 @@ router.put('/unlike',requireLogin,(req,res)=>{
         }
     })
 })
+
+
+router.delete('/deletecomment/:postId/:commentId', requireLogin, (req, res) => {
+    Post.findById(req.params.postId)
+    //   .populate("postedBy","_id name")
+      .populate("comments.postedBy","_id name")
+      .exec((err,post)=>{
+          if(err || !post){
+            return res.status(422).json({message:"Some error occured!!"});
+          }
+          const comment = post.comments.find((comment)=>
+            comment._id.toString() === req.params.commentId.toString()
+            );
+            if (comment.postedBy._id.toString() === req.user._id.toString()) {
+                const removeIndex = post.comments
+                .map(comment => comment.postedBy._id.toString())
+                .indexOf(req.user._id);
+                post.comments.splice(removeIndex, 1);
+                post.save()
+                .then(result=>{
+                    res.json(result)
+                }).catch(err=>console.log(err));
+            }
+      })
+  });
 
 router.put('/comment',requireLogin,(req,res)=>{
     const comment = {
@@ -97,11 +124,11 @@ router.put('/comment',requireLogin,(req,res)=>{
 })
 
 router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
-    console.log(req.params.postId);
+    // console.log(req.params);
     Post.findOne({_id:req.params.postId})
     .populate("postedBy","_id")
     .exec((err,post)=>{
-        // console.log(post);
+        console.log(post);
         
         if(err || !post){
             return res.status(422).json({error:err})

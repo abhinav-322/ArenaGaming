@@ -114,10 +114,28 @@ const Home = () => {
             })
     }
 
-    const deleteComment = (id) => {
-        
-    }
-
+    const deleteComment = (postId,commentId)=>{
+        fetch(`/deletecomment/${postId}/${commentId}`,{
+          method:"delete",
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer "+localStorage.getItem("jwt")
+          }
+        }).then(res=>res.json())
+        .then(result=>{
+          const newData = data.map(item=>{
+            if(item._id===result._id){
+              result.postedBy=item.postedBy;
+              return result
+            }
+            else{
+              return item
+            }
+        })
+        setData(newData);
+        alert("Comment Deleted Successfully");
+      })
+      }
     return (
         <div className='home'>
             {
@@ -151,12 +169,12 @@ const Home = () => {
                                 {
                                     item.comments.map(record => {
                                         return (
-                                            <h6 key={record._id} ><span style={{ fontWeight: '500' }}> {record.postedBy.name} </span> {record.text}  
-                                            { record.postedBy._id == state._id ?
-                                                 <i className='material-icons' onClick={()=>deleteComment(record._id)} > 
-                                                delete </i> : false
-                                            } 
-                                            </h6>
+                                            <h6 className="m-0" key={record._id}> 
+                                                <span>{record.postedBy.name}</span> 
+                                                : <span className="text-secondary">{record.text}</span>
+                                                {record.postedBy._id == state._id 
+                                                && <i className="material-icons" style={{fontSize:"20px"}} 
+                                                    onClick={()=>deleteComment(item._id,record._id)}>delete</i>}</h6>
                                         )
                                     })
                                 }

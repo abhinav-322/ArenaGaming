@@ -43,6 +43,7 @@ const Home = () => {
                 console.log(err)
             })
     }
+
     const unlikePost = (id) => {
         fetch('/unlike', {
             method: "put",
@@ -55,7 +56,7 @@ const Home = () => {
             })
         }).then(res => res.json())
             .then(result => {
-                //   console.log(result)
+                  console.log(result)
                 const newData = data.map(item => {
                     if (item._id == result._id) {
                         return result
@@ -113,22 +114,9 @@ const Home = () => {
             })
     }
 
-    // const deleteComment = (commentid) => {
-    //     console.log(commentid);
-    //     fetch(`/deletecomment/${commentid}`, {
-    //         method: "delete",
-    //         headers: {
-    //             Authorization: "Bearer " + localStorage.getItem("jwt")
-    //         }
-    //     }).then(res => res.json())
-    //         .then(result => {
-    //             console.log(result)
-    //             const newData = data.filter(item => {
-    //                 return item._id !== result._id
-    //             })
-    //             setData(newData)
-    //         })
-    // }
+    const deleteComment = (id) => {
+        
+    }
 
     return (
         <div className='home'>
@@ -163,7 +151,12 @@ const Home = () => {
                                 {
                                     item.comments.map(record => {
                                         return (
-                                            <h6 key={record._id} ><span style={{ fontWeight: '500' }}> {record.postedBy.name} </span> {record.text} </h6>
+                                            <h6 key={record._id} ><span style={{ fontWeight: '500' }}> {record.postedBy.name} </span> {record.text}  
+                                            { record.postedBy._id == state._id ?
+                                                 <i className='material-icons' onClick={()=>deleteComment(record._id)} > 
+                                                delete </i> : false
+                                            } 
+                                            </h6>
                                         )
                                     })
                                 }

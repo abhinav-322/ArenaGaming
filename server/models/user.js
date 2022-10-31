@@ -6,12 +6,22 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String, 
-        require:true
+        require:true,
+        unique: true
     },
     password: {
         type:String,
         required:true
+    },
+    pic:{
+        type: String,
+        default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
     }
-})
+},
+{
+    timestamps: true
+});
 
-mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema);
+module.exports=User;

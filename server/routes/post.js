@@ -144,5 +144,4 @@ router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
     })
 })
 
-
 module.exports = router

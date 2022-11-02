@@ -99,11 +99,7 @@ const Profile = ()=> {
                             <h5> {userProfile.user.followers.length} followers </h5>
                             <h5> {userProfile.user.following.length} following </h5>
                         </div>
-                        {showfollow?
-                            <button className='btn' onClick={()=>followUser()} > Follow </button>
-                            :
-                            <button className='btn' onClick={()=>unfollowUser()} > Unfollow </button>
-                        }
+                        {showfollow? <button className='btn' onClick={()=>followUser()} > Follow </button> : <button className='btn' onClick={()=>unfollowUser()} > Unfollow </button>}
 
 
                     </div>

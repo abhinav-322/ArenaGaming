@@ -16,6 +16,45 @@ const Profile = ()=> {
             setPics(result.mypost)
         })
      },[])
+     useEffect(()=>{
+        if(image){
+        const data = new FormData()
+        data.append("file",image)
+        data.append("upload_preset","twitch-clone")
+        data.append("cloud_name","dvmtowfy1")
+        fetch("https://api.cloudinary.com/v1_1/dvmtowfy1/image/upload",{
+            method:"post",
+            body:data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          console.log(data.url);
+                    fetch("updatepic",{
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json",
+                "Authrization":"Bearer "+localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                pic:data.url
+            }).then(res=>res.json())
+            .then(result=>{
+                console.log(result);
+                localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}));
+                dispatch({type:"UPDATEPIC",payload:result.url});
+
+            })
+          })
+       })
+       .catch(err=>{
+           console.log(err)
+       })
+    }
+
+     },[image])
+     const updatePic = (file) => {
+        setImage(file);
+     }
     return (
         <div>
             <div 
@@ -24,6 +63,11 @@ const Profile = ()=> {
                 <img style={{width: "160px", height: "160px", borderRadius:"80px"}} 
                     src={state?state.pic:"ara ara"}
                 />
+                {/* <button className='btn' onClick={()=>updatePic()} > Update Pic </button> */}
+                <div className="btn #64b5f6 blue darken-1">
+                 <span>Update Image</span>
+                 <input type="file" onChange={(e)=>updatePic(e.target.files[0])} />
+             </div>
                 </div>
                 <div> 
                     <h4> {state?state.name:"ara ara"} </h4>

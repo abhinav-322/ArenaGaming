@@ -26,7 +26,8 @@ const Profile = ()=> {
                 />
                 </div>
                 <div> 
-                    <h4> {state?state.name:"loading"} </h4>
+                    <h4> {state?state.name:"ara ara"} </h4>
+                    <h5> {state?state.email:"ara ara"} </h5>
                     <div 
                         style={{display:"flex", justifyContent:"space-between", width:"108%"}}>
                         <h5> {mypics.length} posts </h5>

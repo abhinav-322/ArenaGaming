@@ -74,6 +74,7 @@ const Profile = ()=> {
                     }
                 }
             })
+            setShowFollow(true)
         })
     }
     return (
@@ -92,7 +93,7 @@ const Profile = ()=> {
                     </div>
                     <div> 
                         <h4> {userProfile.user.name} </h4>
-                        <h4> {userProfile.user.email} </h4>
+                        <h5> {userProfile.user.email} </h5>
                         <div
                             style={{display:"flex", justifyContent:"space-between", width:"108%"}}>
                             <h5> {userProfile.posts.length} posts </h5>

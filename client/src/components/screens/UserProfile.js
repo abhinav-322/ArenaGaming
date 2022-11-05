@@ -1,6 +1,8 @@
 import React,{useEffect,useState,useContext} from 'react'
 import {UserContext} from '../../App'
 import { useParams } from 'react-router-dom'
+import SupportButton from './SupportButton'
+
 const Profile = ()=> {
     const [userProfile,setProfile] = useState(null)
     const {state,dispatch} = useContext(UserContext)
@@ -101,6 +103,7 @@ const Profile = ()=> {
                             <h5> {userProfile.user.following.length} following </h5>
                         </div>
                         {showfollow? <button className='btn' onClick={()=>followUser()} > Follow </button> : <button className='btn' onClick={()=>unfollowUser()} > Unfollow </button>}
+                        <SupportButton/>
 
 
                     </div>

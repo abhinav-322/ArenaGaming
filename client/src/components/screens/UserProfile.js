@@ -17,7 +17,6 @@ const Profile = ()=> {
             }
         }).then(res=>res.json())
         .then(result=>{
-            // console.log(result)
           
              setProfile(result)
         })
@@ -84,7 +83,6 @@ const Profile = ()=> {
         {
             userProfile 
             ?
-
             <div>
                 <div 
                     style={{display:"flex", justifyContent:"space-around", margin:"18px 0px"}}>
@@ -119,10 +117,10 @@ const Profile = ()=> {
                     }
                 </div>
             </div>
+
             :
             <h2>Loding...</h2>
         }
-
         </>
     )
 }

@@ -22,6 +22,7 @@ const Routing =()=> {
      
     if(user) {
       dispatch({type:"USER", payload:user})
+      console.log(user);
       // navigate('/')
     } else {
       navigate('/signin')

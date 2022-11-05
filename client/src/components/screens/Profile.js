@@ -28,24 +28,24 @@ const Profile = ()=> {
         })
         .then(res=>res.json())
         .then(data=>{
-          console.log(data.url);
-                    fetch("updatepic",{
-            method:"PUT",
+        //   console.log(data.url);
+            fetch("/updatepic",{
+            method:"put",
             headers:{
                 "Content-Type":"application/json",
-                "Authrization":"Bearer "+localStorage.getItem("jwt")
+                "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
             body:JSON.stringify({
                 pic:data.url
+            })
             }).then(res=>res.json())
             .then(result=>{
                 console.log(result);
                 localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}));
-                dispatch({type:"UPDATEPIC",payload:result.url});
+                dispatch({type:"UPDATEPIC",payload:result.pic});
 
             })
           })
-       })
        .catch(err=>{
            console.log(err)
        })
@@ -64,10 +64,15 @@ const Profile = ()=> {
                     src={state?state.pic:"ara ara"}
                 />
                 {/* <button className='btn' onClick={()=>updatePic()} > Update Pic </button> */}
+                <div className='file-field input-field'>
                 <div className="btn #64b5f6 blue darken-1">
                  <span>Update Image</span>
                  <input type="file" onChange={(e)=>updatePic(e.target.files[0])} />
              </div>
+             <div className='file-path-wrapper'>
+                    <input className='file-path-validate' type="text"/>
+             </div>
+                </div>
                 </div>
                 <div> 
                     <h4> {state?state.name:"ara ara"} </h4>

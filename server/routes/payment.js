@@ -11,7 +11,7 @@ var razorpay = new Razorpay({
 })
 router.post("/razorpay", async (req, res) => {
     const payment_capture = 1
-    const amount = 5
+    const amount = 50
     const currency = 'INR'
     const options = {
         amount: amount * 100, 
